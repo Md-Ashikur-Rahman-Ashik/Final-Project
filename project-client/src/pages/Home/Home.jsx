@@ -4,10 +4,12 @@ import Category from "./Category";
 import Featured from "./Featured/Featured";
 import PopularMenu from "./PopularMenu";
 import Testimonials from "./Testimonials";
+import { ScrollRestoration } from "react-router-dom";
 
 const Home = () => {
   return (
     <div>
+      <ScrollRestoration></ScrollRestoration>
       <Helmet>
         <title>Bistro Boss | Home</title>
       </Helmet>
