@@ -1,5 +1,8 @@
+import { useContext } from "react";
+import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const SignUp = () => {
   const {
@@ -7,10 +10,21 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const { createUser } = useContext(AuthContext);
+
+  const onSubmit = (data) => {
+    console.log(data);
+    createUser(data.email, data.password)
+      .then((res) => console.log(res.user))
+      .catch((error) => console.error(error));
+  };
 
   return (
     <div className="hero min-h-screen bg-base-200">
+      <Helmet>
+        <title>Bistro Boss | Sign Up</title>
+      </Helmet>
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold">Sign Up!</h1>
@@ -60,12 +74,29 @@ const SignUp = () => {
                   required: true,
                   minLength: 6,
                   maxLength: 20,
+                  pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
                 })}
                 placeholder="Password"
                 className="input input-bordered"
               />
-              {errors.password && (
+              {errors.password?.type === "required" && (
                 <span className="text-red-600">Password is required</span>
+              )}
+              {errors.password?.type === "minLength" && (
+                <span className="text-red-600">
+                  Minimum 6 character required
+                </span>
+              )}
+              {errors.password?.type === "maxLength" && (
+                <span className="text-red-600">
+                  Maximum 20 character is allowed
+                </span>
+              )}
+              {errors.password?.type === "pattern" && (
+                <span className="text-red-600">
+                  Must have one Uppercase, one lowercase, one number and one
+                  special character
+                </span>
               )}
             </div>
             <div className="form-control mt-6">
