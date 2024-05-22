@@ -6,13 +6,19 @@ const Main = () => {
   const location = useLocation();
   // console.log(location);
 
-  const noHeaderFooter = location.pathname.includes("login");
+  const signUpHeaderFooter = location.pathname.includes("signup");
+  const loginHeaderFooter = location.pathname.includes("login");
+
+  // console.log(loginHeaderFooter);
+  // console.log(signUpHeaderFooter);
 
   return (
     <div>
-      {noHeaderFooter || <NavBar></NavBar>}
+      {loginHeaderFooter || signUpHeaderFooter || <NavBar></NavBar>}
+      {/* {signUpHeaderFooter || <NavBar></NavBar>} */}
       <Outlet></Outlet>
-      {noHeaderFooter || <Footer></Footer>}
+      {loginHeaderFooter || signUpHeaderFooter || <Footer></Footer>}
+      {/* {signUpHeaderFooter || <Footer></Footer>} */}
     </div>
   );
 };
