@@ -35,7 +35,8 @@ const NavBar = () => {
         </li>
       )}
       {user && (
-        <li>
+        <li className="flex flex-row">
+          <span>{user?.displayName}</span>
           <button onClick={handleLogOut} className="btn btn-sm btn-ghost">
             Log Out
           </button>
