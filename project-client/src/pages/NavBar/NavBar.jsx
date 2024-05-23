@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
+import { FaShoppingCart } from "react-icons/fa";
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -24,6 +25,14 @@ const NavBar = () => {
       <li>
         <NavLink to={"/secret"}>Secret</NavLink>
       </li>
+      <li>
+        <NavLink to={"/"}>
+          <button className="flex gap-2">
+            <FaShoppingCart />
+            <div className="badge badge-secondary">+0</div>
+          </button>
+        </NavLink>
+      </li>
       {!user && (
         <li>
           <NavLink to={"/login"}>Login</NavLink>
@@ -36,7 +45,7 @@ const NavBar = () => {
       )}
       {user && (
         <li className="flex flex-row">
-          <span>{user?.displayName}</span>
+          {/* <span>{user?.displayName}</span> */}
           <button onClick={handleLogOut} className="btn btn-sm btn-ghost">
             Log Out
           </button>
@@ -75,7 +84,9 @@ const NavBar = () => {
         <a className="btn btn-ghost text-xl">Bistro Boss</a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{navOptions}</ul>
+        <ul className="menu menu-horizontal px-1 flex items-center">
+          {navOptions}
+        </ul>
       </div>
       <div className="navbar-end">
         <a className="btn">Button</a>
