@@ -49,6 +49,11 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        // Get token and store it on the client side
+      } else {
+        // TODO: remove token(if token is stored in the client side)
+      }
       setLoading(false);
     });
     return () => {
@@ -63,7 +68,7 @@ const AuthProvider = ({ children }) => {
     signIn,
     logOut,
     updateUserProfile,
-    googleSignIn
+    googleSignIn,
   };
 
   return (
