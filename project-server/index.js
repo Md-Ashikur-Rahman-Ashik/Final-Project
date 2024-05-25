@@ -131,14 +131,21 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/reviews", async (req, res) => {
+      const result = await reviewCollection.find().toArray();
+      res.send(result);
+    });
+
     app.post("/menu", verifyToken, verifyAdmin, async (req, res) => {
       const item = req.body;
       const result = await menuCollection.insertOne(item);
       res.send(result);
     });
 
-    app.get("/reviews", async (req, res) => {
-      const result = await reviewCollection.find().toArray();
+    app.delete("/menu/:id", verifyToken, verifyAdmin, async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await menuCollection.deleteOne(query);
       res.send(result);
     });
 
