@@ -3,6 +3,7 @@ import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import useMenu from "../../hooks/useMenu";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const ManageItems = () => {
   const [menu, , refetch] = useMenu();
@@ -68,9 +69,11 @@ const ManageItems = () => {
                   <td>{item.name}</td>
                   <td>${item.price}</td>
                   <th>
-                    <button className="btn btn-sm btn-ghost bg-orange-500">
-                      <FaEdit className="text-white text-xl"></FaEdit>
-                    </button>
+                    <Link to={`/dashboard/updateItem/${item._id}`}>
+                      <button className="btn btn-sm btn-ghost bg-orange-500">
+                        <FaEdit className="text-white text-xl"></FaEdit>
+                      </button>
+                    </Link>
                   </th>
                   <th>
                     <button

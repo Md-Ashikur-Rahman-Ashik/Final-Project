@@ -93,6 +93,7 @@ async function run() {
       // Insert email if user doesn't exist
       const query = { email: user.email };
       const existingUser = await userCollection.findOne(query);
+      // console.log(existingUser)
       if (existingUser) {
         return res.send({ message: "User already exists", insertedId: null });
       }
@@ -121,6 +122,7 @@ async function run() {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await userCollection.deleteOne(query);
+      // console.log(result)
       res.send(result);
     });
 
@@ -131,8 +133,19 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/menu/:id", async (req, res) => {
+      const id = req.params.id;
+      // console.log(id)
+      const query = { _id: new ObjectId(id) };
+      // console.log(query)
+      const result = await menuCollection.findOne(query);
+      // console.log(await menuCollection.find().toArray());
+      res.send(result);
+    });
+
     app.get("/reviews", async (req, res) => {
       const result = await reviewCollection.find().toArray();
+      // console.log(result)
       res.send(result);
     });
 
